@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Note: never add maximum-scale=1 or user-scalable=no. People need to pinch-zoom. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magnification Station</title>
+  <meta name="description" content="An interactive demo showing why websites must be designed for screen magnification, browser zoom and larger text.">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-head">
+    <div class="wrap site-head__inner">
+      <a class="brand" href="#top" aria-label="Magnification Station, back to top">
+        <span class="brand__mark" aria-hidden="true"></span>
+        Magnification Station
+      </a>
+      <nav aria-label="Demos">
+        <ul class="toc">
+          <li><a href="#lens">Lens</a></li>
+          <li><a href="#reflow">Reflow</a></li>
+          <li><a href="#text">Text size</a></li>
+          <li><a href="#checklist">Checklist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ───────────── Hero ───────────── -->
+    <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="eyebrow">An interactive accessibility exhibit</p>
+        <h1 id="hero-title">At 4× zoom, you see <em>one sixteenth</em> of the screen.</h1>
+        <p class="lede">
+          Millions of people browse the web through a screen magnifier, browser zoom, or larger
+          default text. The design choices that look tidy at 100% can quietly break at 400%.
+          Try it for yourself at the three stations below.
+        </p>
+        <p class="hero__fact">
+          <strong>2.2 billion</strong> people worldwide live with a near or distance vision impairment
+          <span class="cite">(World Health Organization)</span>. Even more people zoom in because of tired eyes,
+          small screens, glare, or age.
+        </p>
+      </div>
+      <figure class="squares" aria-labelledby="squares-cap">
+        <div class="squares__box" aria-hidden="true">
+          <span class="sq sq--1"><b>1×</b></span>
+          <span class="sq sq--2"><b>2×</b></span>
+          <span class="sq sq--3"><b>3×</b></span>
+          <span class="sq sq--4"><b>4×</b></span>
+        </div>
+        <figcaption id="squares-cap">
+          How much of the screen fits in view: 2× shows 25%, 3× about 11%, and 4× just over 6%.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ───────────── Station 1: Lens ───────────── -->
+    <section class="station" id="lens" aria-labelledby="lens-title">
+      <div class="wrap">
+        <header class="station__head">
+          <p class="station__num" aria-hidden="true">01</p>
+          <div>
+            <h2 id="lens-title">Through the lens</h2>
+            <p class="station__intro">
+              A full-screen magnifier enlarges everything and follows your pointer. You see only a
+              small window of the page. Feedback that appears far from where you're working may as
+              well not exist.
+            </p>
+          </div>
+        </header>
+
+        <div class="task">
+          <p class="task__label">Your task</p>
+          <p class="task__body">Add the Ridgeline jacket to your cart. First, press <strong>Add to cart</strong> <em>without</em> choosing a size. Did anything happen?</p>
+        </div>
+
+        <div class="controls">
+          <fieldset class="seg">
+            <legend>Design</legend>
+            <label><input type="radio" name="lens-variant" value="bad" checked><span>Fragile</span></label>
+            <label><input type="radio" name="lens-variant" value="good"><span>Magnifier-friendly</span></label>
+          </fieldset>
+          <fieldset class="seg">
+            <legend>Magnification</legend>
+            <label><input type="radio" name="lens-zoom" value="1"><span>1×</span></label>
+            <label><input type="radio" name="lens-zoom" value="2"><span>2×</span></label>
+            <label><input type="radio" name="lens-zoom" value="3" checked><span>3×</span></label>
+            <label><input type="radio" name="lens-zoom" value="4"><span>4×</span></label>
+          </fieldset>
+        </div>
+
+        <div class="lens-layout">
+          <div class="lens-stage" id="lens-stage" tabindex="0" role="region"
+               aria-roledescription="magnified screen"
+               aria-label="Simulated magnified screen. Move the pointer, or focus here and use arrow keys, to pan. Press Tab to reach the shop controls.">
+            <div class="mock" id="mock" data-variant="bad">
+              <header class="m-head">
+                <span class="m-logo">▲ Northwind Outfitters</span>
+                <nav class="m-nav" aria-label="Shop (simulated)">
+                  <span>Men</span><span>Women</span><span>Gear</span><span>Sale</span>
+                </nav>
+                <span class="m-search">Search…</span>
+                <span class="m-cart">Cart <b id="m-cart-count">0</b></span>
+              </header>
+              <div class="m-banner" id="m-banner" hidden>⚠ Please choose a size before adding this item to your cart.</div>
+              <div class="m-toast" id="m-toast" hidden>✓ Added to cart</div>
+
+              <div class="m-main">
+                <div class="m-photo" aria-hidden="true"><div class="m-jacket"></div></div>
+                <div class="m-info">
+                  <p class="m-crumbs">Home / Men / Jackets</p>
+                  <h3 class="m-title">Ridgeline Rain Jacket</h3>
+                  <p class="m-price">$148.00 <span>★★★★☆ 214 reviews</span></p>
+                  <p class="m-desc">Fully seam-sealed, breathable three-layer shell with pit zips and an adjustable hood.</p>
+                  <fieldset class="m-sizes" id="m-sizes">
+                    <legend>Size</legend>
+                    <label><input type="radio" name="m-size" value="S"><span>S</span></label>
+                    <label><input type="radio" name="m-size" value="M"><span>M</span></label>
+                    <label><input type="radio" name="m-size" value="L"><span>L</span></label>
+                    <label><input type="radio" name="m-size" value="XL"><span>XL</span></label>
+                  </fieldset>
+                  <p class="m-inline-error" id="m-inline-error" hidden>⚠ Choose a size to continue.</p>
+                  <div class="m-actions">
+                    <button type="button" class="m-add" id="m-add">Add to cart</button>
+                    <span class="m-fav">♡ Save</span>
+                  </div>
+                  <p class="m-status" id="m-status" role="status"></p>
+                  <p class="m-ship">Free shipping over $100 · 60-day returns</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="lens-side" aria-label="Lens readout">
+            <div class="minimap" aria-hidden="true">
+              <div class="minimap__screen"><div class="minimap__view" id="minimap-view"></div></div>
+            </div>
+            <p class="readout"><span class="readout__big" id="lens-visible">11%</span> of the screen visible</p>
+            <button type="button" class="btn" id="lens-reveal">Zoom out and see what you missed</button>
+            <div class="note" id="lens-note" aria-live="polite">
+              <p><strong>What to notice:</strong> in the fragile design the error banner appears at the top of the page, and the confirmation pops up in the far corner, then fades away.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── Station 2: Reflow ───────────── -->
+    <section class="station station--alt" id="reflow" aria-labelledby="reflow-title">
+      <div class="wrap">
+        <header class="station__head">
+          <p class="station__num" aria-hidden="true">02</p>
+          <div>
+            <h2 id="reflow-title">Zoom to 400%</h2>
+            <p class="station__intro">
+              Browser zoom makes the viewport effectively narrower. On a 1280px-wide window, 400% zoom
+              leaves a layout with just 320 CSS pixels, the width of a small phone. A layout with a fixed
+              width makes people scroll sideways <em>on every line</em>. A responsive one reflows.
+            </p>
+          </div>
+        </header>
+
+        <div class="controls">
+          <fieldset class="seg">
+            <legend>Design</legend>
+            <label><input type="radio" name="rf-variant" value="bad" checked><span>Fixed width</span></label>
+            <label><input type="radio" name="rf-variant" value="good"><span>Responsive</span></label>
+          </fieldset>
+          <div class="slider">
+            <label for="rf-zoom">Browser zoom <output id="rf-zoom-out" for="rf-zoom">100%</output></label>
+            <input type="range" id="rf-zoom" min="0" max="7" step="1" value="0" aria-valuetext="100%">
+            <div class="slider__ticks" aria-hidden="true"><span>100</span><span>125</span><span>150</span><span>175</span><span>200</span><span>250</span><span>300</span><span>400</span></div>
+          </div>
+        </div>
+
+        <div class="browser">
+          <div class="browser__bar" aria-hidden="true">
+            <span class="dots"><i></i><i></i><i></i></span>
+            <span class="browser__url">riverbend-library.example/renew</span>
+          </div>
+          <div class="rf-stage" id="rf-stage">
+            <div class="rf-viewport" id="rf-viewport" tabindex="0" role="region" aria-label="Simulated browser window. Scroll to read the page.">
+              <div class="rf-site" id="rf-site" data-variant="bad">
+                <header class="rf-head">
+                  <span class="rf-logo">Riverbend Public Library</span>
+                  <nav class="rf-nav" aria-label="Library (simulated)"><span>Catalog</span><span>Events</span><span>Hours</span><span>Kids</span><span>My account</span></nav>
+                </header>
+                <div class="rf-layout">
+                  <nav class="rf-side" aria-label="Account (simulated)">
+                    <p class="rf-side__h">My account</p>
+                    <span>Checkouts</span><span>Holds</span><span>Fines</span><span>Renew card</span>
+                  </nav>
+                  <article class="rf-article">
+                    <h3>Renew your library card</h3>
+                    <p>Cards need renewing every three years. Renew online in a couple of minutes. Have your card number and a current address ready. Renewal is free for residents of Riverbend County.</p>
+                    <div class="rf-form">
+                      <label for="rf-card">Card number</label>
+                      <div class="rf-row"><input id="rf-card" type="text" inputmode="numeric" placeholder="2 1234 56789 0123"><button type="button">Renew card</button></div>
+                    </div>
+                  </article>
+                  <aside class="rf-hours" aria-label="Hours (simulated)">
+                    <p class="rf-side__h">Today’s hours</p>
+                    <table><tbody>
+                      <tr><th scope="row">Main</th><td>9–8</td></tr>
+                      <tr><th scope="row">Eastside</th><td>10–6</td></tr>
+                      <tr><th scope="row">Mobile</th><td>1–5</td></tr>
+                    </tbody></table>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="verdict" id="rf-verdict" role="status"></p>
+      </div>
+    </section>
+
+    <!-- ───────────── Station 3: Text size ───────────── -->
+    <section class="station" id="text" aria-labelledby="text-title">
+      <div class="wrap">
+        <header class="station__head">
+          <p class="station__num" aria-hidden="true">03</p>
+          <div>
+            <h2 id="text-title">Turn up the text</h2>
+            <p class="station__intro">
+              Many people never touch the zoom shortcut. They set a larger default font size in their
+              browser or operating system instead. Text sized in fixed pixels ignores that setting, and
+              boxes with fixed heights cut off text that does grow.
+            </p>
+          </div>
+        </header>
+
+        <div class="controls">
+          <fieldset class="seg">
+            <legend>Browser default text size</legend>
+            <label><input type="radio" name="tx-size" value="1" checked><span>Medium</span></label>
+            <label><input type="radio" name="tx-size" value="1.5"><span>Large</span></label>
+            <label><input type="radio" name="tx-size" value="2"><span>Very large</span></label>
+          </fieldset>
+        </div>
+
+        <div class="tx-grid" id="tx-root">
+          <figure class="tx-col">
+            <figcaption><span class="tag tag--bad">Fragile</span> px units, fixed heights</figcaption>
+            <div class="tx-card tx-card--bad">
+              <p class="tx-kicker">Appointment reminder</p>
+              <h3 class="tx-h">Your flu shot is on Thursday</h3>
+              <p class="tx-p">Thursday, Nov 19 at 2:30 PM with Dr. Patel, Eastside Clinic, Room 204. Please arrive 10 minutes early and bring your insurance card.</p>
+              <div class="tx-btns"><button type="button">Confirm appointment</button><button type="button">Reschedule</button></div>
+            </div>
+            <ul class="tx-notes">
+              <li>Heading set in <code>px</code>, so it never grows.</li>
+              <li>Card height is fixed, so the time and place get cut off.</li>
+              <li>Buttons have a fixed width with <code>nowrap</code>, so their labels are truncated.</li>
+            </ul>
+          </figure>
+          <figure class="tx-col">
+            <figcaption><span class="tag tag--good">Resilient</span> relative units, flexible boxes</figcaption>
+            <div class="tx-card tx-card--good">
+              <p class="tx-kicker">Appointment reminder</p>
+              <h3 class="tx-h">Your flu shot is on Thursday</h3>
+              <p class="tx-p">Thursday, Nov 19 at 2:30 PM with Dr. Patel, Eastside Clinic, Room 204. Please arrive 10 minutes early and bring your insurance card.</p>
+              <div class="tx-btns"><button type="button">Confirm appointment</button><button type="button">Reschedule</button></div>
+            </div>
+            <ul class="tx-notes">
+              <li>Type in <code>rem</code>/<code>em</code> respects the reader’s setting.</li>
+              <li><code>min-height</code> lets the card grow with its content.</li>
+              <li>Buttons wrap onto new lines instead of clipping.</li>
+            </ul>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── Checklist ───────────── -->
+    <section class="station station--alt" id="checklist" aria-labelledby="check-title">
+      <div class="wrap">
+        <header class="station__head">
+          <p class="station__num" aria-hidden="true">04</p>
+          <div>
+            <h2 id="check-title">Design for the zoomed-in view</h2>
+            <p class="station__intro">Most of these fixes cost nothing if you build them in from the start.</p>
+          </div>
+        </header>
+
+        <ol class="checks">
+          <li>
+            <h3>Keep feedback close to the action</h3>
+            <p>Put errors next to the field they describe and confirmations next to the button that triggered them. Don’t rely on corner toasts or top-of-page banners alone.</p>
+            <p class="wcag">WCAG 3.3.1 Error Identification · 4.1.3 Status Messages</p>
+          </li>
+          <li>
+            <h3>Reflow at 320 CSS pixels</h3>
+            <p>At 400% zoom, content should fit in one column with no horizontal scrolling. Use fluid grids, <code>flex-wrap</code>, <code>minmax()</code> and container or media queries.</p>
+            <p class="wcag">WCAG 1.4.10 Reflow (AA)</p>
+          </li>
+          <li>
+            <h3>Size text in relative units</h3>
+            <p>Use <code>rem</code> and <code>em</code> for type and spacing so text follows the reader’s chosen size. Make sure it still works when text is enlarged to 200%.</p>
+            <p class="wcag">WCAG 1.4.4 Resize Text (AA)</p>
+          </li>
+          <li>
+            <h3>Let boxes grow</h3>
+            <p>Prefer <code>min-height</code> over <code>height</code>, and avoid <code>overflow: hidden</code> or <code>nowrap</code> on text. Allow extra line, letter and word spacing.</p>
+            <p class="wcag">WCAG 1.4.12 Text Spacing (AA)</p>
+          </li>
+          <li>
+            <h3>Never disable pinch-zoom</h3>
+            <p>Remove <code>maximum-scale=1</code> and <code>user-scalable=no</code> from your viewport meta tag.</p>
+            <p class="wcag">WCAG 1.4.4 Resize Text (AA)</p>
+          </li>
+          <li>
+            <h3>Watch sticky headers and footers</h3>
+            <p>When the page is magnified, sticky bars can fill most of what’s visible and hide the focused element. Keep them short, or un-stick them on small viewports.</p>
+            <p class="wcag">WCAG 2.4.11 Focus Not Obscured (AA)</p>
+          </li>
+          <li>
+            <h3>Make hover content behave</h3>
+            <p>Tooltips and menus must stay open while the pointer moves onto them, and must be dismissible with Esc. A magnifier user moves slowly.</p>
+            <p class="wcag">WCAG 1.4.13 Content on Hover or Focus (AA)</p>
+          </li>
+          <li>
+            <h3>Use real text, not pictures of text</h3>
+            <p>Text in images turns blurry when enlarged and can’t reflow or change color.</p>
+            <p class="wcag">WCAG 1.4.5 Images of Text (AA)</p>
+          </li>
+        </ol>
+
+        <div class="tryit">
+          <h3>Test it yourself in five minutes</h3>
+          <ul>
+            <li><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>+</kbd> zoom your browser to <strong>400%</strong> and use the page.</li>
+            <li>macOS Zoom: <kbd>⌥</kbd> <kbd>⌘</kbd> <kbd>8</kbd> (turn it on in System Settings → Accessibility → Zoom).</li>
+            <li>Windows Magnifier: <kbd>⊞ Win</kbd> + <kbd>+</kbd>; exit with <kbd>⊞ Win</kbd> + <kbd>Esc</kbd>.</li>
+            <li>Set your browser’s default font size to “Very large” and check that nothing clips.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <div class="wrap">
+      <p>Body text on this page uses <a href="https://www.brailleinstitute.org/freefont/">Atkinson Hyperlegible</a>, a typeface designed by the Braille Institute for readers with low vision. The shop and library on this page are fictional.</p>
+    </div>
+  </footer>
+</body>
+</html>
